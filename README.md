@@ -13,6 +13,18 @@ Works on:
 
 ## Use This
 
+Fresh machine, no local projects yet:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sYanXO/quick_setup/main/bootstrap.sh | bash
+```
+
+Fresh machine, no questions:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sYanXO/quick_setup/main/bootstrap.sh | bash -s -- --non-interactive
+```
+
 From inside your project:
 
 ```bash
@@ -46,7 +58,9 @@ It also copies the repo's default config for shell, git, neovim, tmux, and VS Co
 
 ## How It Decides What To Install
 
-It looks at your project folder.
+If you do not pass `--project`, it uses the default full setup from the repo config.
+
+If you pass `--project`, it looks at that project folder.
 
 If it finds files like these, it can set up only what you need:
 
