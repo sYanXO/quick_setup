@@ -1,79 +1,78 @@
 # quicksetup
 
-Opinionated one-line workstation bootstrap for:
+This is for when your Linux dev setup is broken and you want it back fast.
+
+This is mainly for my own stack and habits: C++, Rust, Go, Python, and TypeScript on Ubuntu or Arch/Omarchy. If your setup is very different, this probably is not the right bootstrap as-is.
+
+Contributions are open, but I do not review them quickly.
+
+Works on:
 
 - Ubuntu
 - Arch / Omarchy
 
-It installs a current stable development stack for:
+## Use This
 
-- C++ (`gcc`, `clang`, `cmake`, `ninja`)
-- Rust (`rustup`, `cargo`, `rustfmt`, `clippy`)
+From inside your project:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sYanXO/quick_setup/main/bootstrap.sh | bash -s -- --project "$PWD"
+```
+
+That version may ask a couple of questions in the terminal.
+
+If you want no questions:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sYanXO/quick_setup/main/bootstrap.sh | bash -s -- --project "$PWD" --non-interactive
+```
+
+If your project is somewhere else:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sYanXO/quick_setup/main/bootstrap.sh | bash -s -- --project ~/code/my-project
+```
+
+## What It Sets Up
+
+- C++: `gcc`, `clang`, `cmake`, `ninja`
+- Rust: `rustup`, `cargo`, `rustfmt`, `clippy`
 - Go
 - Python + `pipx`
 - Node.js + TypeScript
+- `git`, `zsh`, `tmux`, `neovim`, `vscode`, `docker`
 
-It also applies repo-managed shell/editor defaults for:
+It also copies the repo's default config for shell, git, neovim, tmux, and VS Code.
 
-- `git`
-- `zsh`
-- `tmux`
-- `neovim`
-- `vscode`
-- `docker`
+## How It Decides What To Install
 
-## Bootstrap
+It looks at your project folder.
 
-Remote one-liner for the current project:
+If it finds files like these, it can set up only what you need:
 
-```bash
-curl -fsSL https://example.com/quicksetup/bootstrap.sh | bash -s -- --project "$PWD"
-```
+- `Cargo.toml`
+- `go.mod`
+- `package.json`
+- `pyproject.toml`
+- `requirements.txt`
+- `uv.lock`
+- `CMakeLists.txt`
+- `Makefile`
 
-If you want a couple of terminal prompts, omit `--non-interactive`.
+## Safe Check First
 
-Examples:
-
-```bash
-curl -fsSL https://example.com/quicksetup/bootstrap.sh | bash -s -- --project ~/code/myapp
-bash bootstrap.sh --project "$PWD" --dry-run
-```
-
-For local development:
+If you want to see what it would do without changing anything:
 
 ```bash
 bash bootstrap.sh --project "$PWD" --dry-run
 ```
 
-## Config
+## If You Screw It Up Again
 
-Defaults live in [config/default.env](/home/sreayan/work/quicksetup/config/default.env).
+Run the same command again. The installer is meant to be rerun.
 
-Supported flags:
-
-- `--project <path>`
-- `--config <path>`
-- `--only <group1,group2>`
-- `--skip <component1,component2>`
-- `--non-interactive`
-- `--dry-run`
-
-Component groups:
-
-- `basics`
-- `cpp`
-- `rust`
-- `go`
-- `python`
-- `node`
-- `editors`
-- `shell`
-- `docker`
-- `dotfiles`
-
-## Layout
+## Files
 
 - [bootstrap.sh](/home/sreayan/work/quicksetup/bootstrap.sh)
+- [config/default.env](/home/sreayan/work/quicksetup/config/default.env)
 - [scripts/linux/install.sh](/home/sreayan/work/quicksetup/scripts/linux/install.sh)
-
-The installer inspects the project path for `Cargo.toml`, `go.mod`, `package.json`, `pyproject.toml`, `requirements.txt`, `uv.lock`, `CMakeLists.txt`, `Makefile`, and common C++ source files. In interactive mode it can narrow installation to the detected language stacks plus common tooling.

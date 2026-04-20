@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_REPO_URL="${QUICKSETUP_REPO_URL:-https://github.com/sreayan/quicksetup.git}"
+DEFAULT_REPO_URL="${QUICKSETUP_REPO_URL:-https://github.com/sYanXO/quick_setup.git}"
 DEFAULT_INSTALL_ROOT="${QUICKSETUP_INSTALL_ROOT:-${XDG_DATA_HOME:-$HOME/.local/share}/quicksetup}"
 CONFIG_FILE=""
 PROJECT_PATH=""
